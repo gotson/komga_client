@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:komgaclient/models/serverdetails.dart';
 import 'package:komgaclient/widgets/comiccard.dart';
-import 'package:openapi/model/page_book_dto.dart';
-import 'package:openapi/model/series_dto.dart';
+import 'package:komga_api_client/model/page_book_dto.dart';
+import 'package:komga_api_client/model/series_dto.dart';
 import 'package:dio/dio.dart';
-import 'package:openapi/api.dart';
-import 'package:numberpicker/numberpicker.dart';
+import 'package:komga_api_client/api.dart';
 import 'package:flushbar/flushbar.dart';
-import 'package:openapi/model/book_dto.dart';
+import 'package:komga_api_client/model/book_dto.dart';
 
 class SeriesScreen extends StatefulWidget {
   final SeriesDto series;
@@ -23,15 +22,13 @@ class SeriesScreen extends StatefulWidget {
 class _SeriesScreenState extends State<SeriesScreen> {
   int page = 1;
 
-  NumberPicker pageNumberPicker;
-
   @override
   Widget build(BuildContext context) {
     int totalPages = (widget.series.booksCount /20).ceil();
     Dio dio = Dio();
     dio.options.baseUrl = widget.sd.url;
     dio.options.headers = widget.sd.headers;
-    Openapi oa = Openapi(dio: dio);
+    KomgaApiClient oa = KomgaApiClient(dio: dio);
 
     return Scaffold(
       appBar: AppBar(title: Text("Series View")),
@@ -88,7 +85,9 @@ class _SeriesScreenState extends State<SeriesScreen> {
                             ),
                             RaisedButton(
                               child: Text("Go to page..."),
-                              onPressed: () => {},
+                              onPressed: () => {
+
+                              },
                               //TODO some sort of page choosing dialog
 
 

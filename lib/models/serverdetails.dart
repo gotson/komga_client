@@ -1,19 +1,29 @@
 import 'dart:convert';
 
 class ServerDetails {
-  final String url;
-  final String user;
-  final String pass;
-  final Map<String, String> headers;
+  String url;
+  String user;
+  String pass;
+  Map<String, String> headers;
 
   ServerDetails(this.url, this.user, this.pass):
   headers = {
     "authorization" : 'Basic ' + base64Encode(utf8.encode("$user:$pass"))
   };
 
+  ServerDetails.fromJson(Map<String, dynamic> _json){
+    url = _json["url"];
+    user = _json["user"];
+    pass = _json["pass"];
+    headers = {
+      "authorization" : 'Basic ' + base64Encode(utf8.encode("$user:$pass"))
+    };
+  }
+
   Map<String, String> toJson() => {
     "url" : url,
     "user" : user,
     "pass" : pass
   };
+
 }
